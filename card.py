@@ -1,8 +1,12 @@
 class Card:
     # initialize function
-    def __init__(self, name, month, category):
+    def __init__(self, name: str, month: int, category: int):
+        # Run validations on the received arguments
+        # assert month >= 0, f"Month {month} is not greater than zero"
+        # assert category >= 0, f"Month {category} is not greater than zero"
+
         self.name = name
-        self.month = month  #0 is bonus cards, 1~12 are the month
+        self.month = month  # 0 is bonus cards, 1~12 are the month
         self.category = category
 
     def show_card(self):
@@ -23,6 +27,8 @@ class Month(object):
     OCT = 10
     NOV = 11
     DEC = 12
+    BMB = 13
+    BON = 14
 
 
 class Category(object):
@@ -31,6 +37,9 @@ class Category(object):
     RIBBON = 3
     JUNK = 4
     JUNK_TWO = 5
+    SKIP_BOMB = 6
+    BONUS_TWO = 7
+    BONUS_THREE = 8
 
 
 CRANE = Card('Pine and Crane', Month.JAN, Category.BRIGHT)
@@ -65,7 +74,8 @@ MOON = Card('Pampas Grass and Moon', Month.AUG, Category.BRIGHT)
 GEESE = Card('Pampas Grass and Geese', Month.AUG, Category.ANIMAL)
 PAMPAS_GRASS = Card('Pampas Grass', Month.AUG, Category.JUNK)
 
-CUP = Card('Chrysanthemum and Cup', Month.SEP, (Category.ANIMAL, Category.JUNK_TWO))
+# CUP = Card('Chrysanthemum and Cup', Month.SEP, (Category.ANIMAL, Category.JUNK_TWO))
+CUP = Card('Chrysanthemum and Cup', Month.SEP, Category.JUNK_TWO)
 CHRYSANTHEMUM_BLUE_POEM = Card('Chrysanthemum and Blue Poem Ribbon', Month.SEP, Category.RIBBON)
 CHRYSANTHEMUM = Card('Chrysanthemum', Month.SEP, Category.JUNK)
 
@@ -82,6 +92,10 @@ SWALLOW = Card('Willow and Swallow', Month.DEC, Category.ANIMAL)
 WILLOW_RED = Card('Willow and Red Ribbon', Month.DEC, Category.RIBBON)
 WILLOW_TWO = Card('Willow', Month.DEC, Category.JUNK_TWO)
 
+BOMB = Card('Bomb', Month.BMB, Category.SKIP_BOMB)
+
+BONUS_TWO = Card('Bonus Two', Month.BON, Category.BONUS_TWO)
+BONUS_THREE = Card('Bonus Three', Month.BON, Category.BONUS_THREE)
 
 ALL_CARDS = (
     CRANE, PINE_RED_POEM, PINE, PINE,
@@ -95,5 +109,5 @@ ALL_CARDS = (
     CUP, CHRYSANTHEMUM_BLUE_POEM, CHRYSANTHEMUM, CHRYSANTHEMUM,
     DEER, MAPLE_BLUE_POEM, MAPLE, MAPLE,
     PHOENIX, PAULOWNIA_TWO, PAULOWNIA, PAULOWNIA,
-    RAIN, SWALLOW, WILLOW_RED, WILLOW_TWO
+    RAIN, SWALLOW, WILLOW_RED, WILLOW_TWO, BONUS_TWO, BONUS_THREE
 )
