@@ -3,9 +3,11 @@ from deck import Deck
 from player import Player
 from card import Card
 from card import ALL_CARDS
-from player import HandOfCards
-from PIL import Image
-import timeit
+from tkinter import *
+from tkinter import ttk
+from PIL import ImageTk, Image
+from card import window
+from card import Images
 
 
 class Game:
@@ -366,6 +368,9 @@ class Game:
                     stealing_player.cards_on_board.append(i)
                     giving_player.cards_on_board.remove(i)
 
+    #def handle_ppeok_logic(self, player_num, lay_down, drawn_card, bonus_card):
+
+
     def add_four_cards_to_players_board(self, player_num, month):
         for i in ALL_CARDS:
             if i.month == month:
@@ -408,7 +413,7 @@ class Game:
         player_num.point_multiplier = player_num.point_multiplier * 2
         bomb_two = True
         # create one bomb card
-        bomb_card = Card('Bomb', 13, 6)
+        bomb_card = Card('Bomb', 13, 6, Images.CRANE_GIF)
 
         player_num.cards_in_hand.append(bomb_card)
 
@@ -429,9 +434,9 @@ class Game:
         player_num.point_multiplier = player_num.point_multiplier * 2
         bomb_three = True
         # create two bomb cards
-        bomb_card = Card('Bomb', 13, 6)
+        bomb_card = Card('Bomb', 13, 6, Images.CRANE_GIF)
         player_num.cards_in_hand.append(bomb_card)
-        bomb_card = Card('Bomb', 13, 6)
+        bomb_card = Card('Bomb', 13, 6, Images.CRANE_GIF)
         player_num.cards_in_hand.append(bomb_card)
 
         #add all four cards of the lay_down month to the player's board
@@ -630,8 +635,119 @@ class Game:
                 self.table.cards_on_board.append(just_in_case_card)
                 player_num.ddong_count = player_num.ddong_count + 1
 
-    def calc_point_total(self, player_num):
-        player_num.point_total = 0
+    def update_gui(self, player_one_hand, player_one_board, player_two_hand, player_two_board, communal_cards, bFirst):
+
+        #win = Tk()
+        #window = Tk()
+
+        #if not bFirst:
+            #window = Tk()
+
+        window_width = 1600
+        window_height = 1000
+
+        # get the screen dimension
+        screen_width = window.winfo_screenwidth()
+        screen_height = window.winfo_screenheight()
+
+        # find the center point
+        center_x = int(screen_width / 2 - window_width / 2)
+        center_y = int(screen_height / 2 - window_height / 2)
+
+        # set the position of the window to the center of the screen
+        #window.geometry(f'{window_width}x{window_height}+{center_x}+{center_y}')
+        window.title("Sup?")
+        #frame = Frame(master=window, width=50, height=50)
+
+        window.rowconfigure(0, minsize=50, weight=1)
+        window.columnconfigure([0, 1, 2, 3, 4, 5, 6, 7, 8, 9], minsize=100, weight=1)
+
+
+        button_array = []
+        count = 0
+
+        #for i in player_one_hand:
+        #    for j in range(3):
+        #        frame = Frame(
+        #            master=window,
+        #            relief=RAISED,
+        #            borderwidth=1
+        #        )
+        #        button = ttk.Button(master=frame, image=i.image)
+        #        button_array[count].append(button)
+        #        button.pack()
+        #        count = count + 1
+
+
+        for i in player_one_hand:
+            button = ttk.Button(master=window, image=i.image)
+            button_array.append(button)
+            #button_array[count].pack(side=LEFT)
+            button_array[count].grid(row=0, column=count, sticky="nsew")
+            count = count + 1
+
+        #btn_decrease = tk.Button(master=window, text="-")
+        #btn_decrease.grid(row=0, column=0, sticky="nsew")
+        #frame.pack()
+        #frame.place(anchor='center', relx=0.5, rely=0.5)
+        #frame.place(anchor='nw')
+        #frame.pack()
+        # Create an object of tkinter ImageTk
+        # Card Image size: 60x93, 8bpp
+
+        # label 1
+        #label1 = tk.Label(
+        #    root,
+        #    text="Absolute placement",
+        #    bg='red',
+        #    fg='white'
+        #)
+
+        #label1.place(x=20, y=10)
+
+        # label 2
+        #label2 = tk.Label(
+        #    root,
+        #    text="Relative placement",
+        #    bg='blue',
+        #    fg='white'
+        #)
+
+        #label2.place(relx=0.8, rely=0.2, relwidth=0.5, anchor='ne')
+
+
+        #button_array = []
+        #count = 0
+        #for i in player_one_hand:
+        #    button = ttk.Button(master=frame, image=i.image)
+        #    button_array.append(button)
+        #    button_array[count].pack(side=LEFT)
+        #    count = count + 1
+
+        #myaction = 3+3
+        #action = ttk.Button(window, text="Action", default="active", command=3+3)
+        #window.bind('<Return>', lambda e: action.invoke())
+
+        #button = Tk.Button(master=frame, text='press', command=lambda: action(3+3))
+
+        #card8.pack(side=LEFT)
+        #label2.place(height=100, width=400)
+        # frame.grid()
+        # ttk.Label(frame, text="Hello World!").grid(column=0, row=0)
+        # ttk.Button(frame, text="Quit", command=win.destroy).grid(column=1, row=0)
+
+        #label = Label(frame, text="hello")
+        #label.pack(side=LEFT)
+        #label.place(anchor='sw', x=200, y=200)
+        #label.pack(side=BOTTOM)
+        #tk.Button(app, text="Increase", width=30,
+        #          command=partial(change_label_number, 2))
+
+
+        window.mainloop()
+        #window.quit()
+
+
 
     def play_game(self, first_to_act):
 
@@ -660,6 +776,9 @@ class Game:
 
         shuffled_deck = self.setup_game()
 
+        self.update_gui(self.player_one.cards_in_hand, self.player_one.cards_on_board, self.player_two.cards_in_hand,
+                        self.player_two.cards_on_board, self.table.cards_on_board, bFirst=True)
+
         # for i in player_one_hand:
         # for i in self.player_one.cards_in_hand:
         # print(i.name, ",", i.month, ",", i.category)
@@ -679,9 +798,15 @@ class Game:
             current_player_num = self.get_current_player_num()
             waiting_player = self.get_waiting_player()
             waiting_player_num = self.get_waiting_player_num()
+            ppeok_bool = False
+
+            self.update_gui(self.player_one.cards_in_hand, self.player_one.cards_on_board,
+                            self.player_two.cards_in_hand,
+                            self.player_two.cards_on_board, self.table.cards_on_board, bFirst=False)
+
             #self.print_player_cards(current_player)
 
-            lay_down = self.current_player.lay_down_card(self.current_player.cards_in_hand)
+            lay_down = self.current_player.lay_down_random_card(self.current_player.cards_in_hand)
             #print("Player", current_player_num, "played: ", lay_down.name, ",", lay_down.month, ",", lay_down.category)
 
             if lay_down.month == 14:
@@ -689,16 +814,26 @@ class Game:
                     self.current_player.cards_on_board.append(lay_down)
                     replacement_card = self.current_player.draw_card(shuffled_deck)
                     self.current_player.cards_in_hand.append(replacement_card)
-                    lay_down = self.current_player.lay_down_card(self.current_player.cards_in_hand)
+                    lay_down = self.current_player.lay_down_random_card(self.current_player.cards_in_hand)
                     self.steal_pi(current_player, waiting_player)
 
             drawn_card = self.table.draw_card(shuffled_deck)
-
+            bonus_card = drawn_card
             if drawn_card.month == 14:
                 while drawn_card.month == 14:
                     self.current_player.cards_on_board.append(drawn_card)
+                    bonus_card = drawn_card
                     drawn_card = self.table.draw_card(shuffled_deck)
-                    self.steal_pi(current_player, waiting_player)
+
+                    if lay_down.month == drawn_card.month:
+                        #print("ppeok!")
+                        ppeok_bool = True
+                        self.steal_pi(current_player, waiting_player)  # remove later
+                    else:
+                        self.steal_pi(current_player, waiting_player)
+
+
+
 
             #print("Player", current_player_num, "draw card is: ", drawn_card.name, ",", drawn_card.month, ",", drawn_card.category)
 
@@ -706,6 +841,7 @@ class Game:
 
             # add it to the table
             if lay_down.category != 6:
+
                 self.table.cards_on_board.append(lay_down)
             else:
                 pass
@@ -731,6 +867,8 @@ class Game:
             #print("Month count on my table drawn = ", month_count_on_my_table_drawn)
             #print("Month count in my hand drawn = ", month_count_in_my_hand_drawn)
 
+            #if ppeok_bool:
+            #    self.handle_ppeok_logic(current_player, lay_down, drawn_card, bonus_card)
             if month_count_in_communal_area_lay_down == 3 and month_count_in_my_hand_lay_down == 1:
                 bomb_two = self.check_for_bomb_two(lay_down, current_player)
             elif month_count_in_communal_area_lay_down == 2 and month_count_in_my_hand_lay_down == 2:
@@ -751,8 +889,12 @@ class Game:
                 pass
                 #print("You swung and missed!")
 
+
+
             # lets do draw card logic here
             self.check_drawn_card_logic(current_player, lay_down, drawn_card, month_count_in_communal_area_drawn, month_count_in_my_hand_drawn, just_in_case_card)
+
+            #ppeok_bool = False
 
             point_total_player_one = self.update_point_total(self.player_one, 1)
             point_total_player_two = self.update_point_total(self.player_two, 2)
@@ -760,12 +902,12 @@ class Game:
             if self.player_one.win:
                 #self.print_player_board_cards(self.player_one, 1)
                 #self.print_player_board_cards(self.player_two, 2)
-                print("Player 1 wins with ", point_total_player_one, "points")
+                #print("Player 1 wins with ", point_total_player_one, "points")
                 return point_total_player_one
             elif self.player_two.win:
                 #self.print_player_board_cards(self.player_one, 1)
                 #self.print_player_board_cards(self.player_two, 2)
-                print("Player 2 wins with ", point_total_player_two, "points")
+                #print("Player 2 wins with ", point_total_player_two, "points")
                 return -point_total_player_two
             else:
                 pass
@@ -818,8 +960,10 @@ player_two_point_total = 0
 player_one_money_won = 0
 player_two_money_won = 0
 tie_count = 0
+winner = 0
+who_goes_first = 0
 
-while game_num < 10000:
+while game_num < 1:
     g = Game()
     if game_num == 0:
         who_goes_first = g.roll_to_start()
@@ -831,8 +975,10 @@ while game_num < 10000:
         else:
             pass
 
+    #g.draw_gui()
+
     winner = g.play_game(who_goes_first)
-    #winner = g.play_game(2)
+    #winner = g.play_game(1)
     if winner > 0:
         player_one_win_count = player_one_win_count + 1
     elif winner < 0:

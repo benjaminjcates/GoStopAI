@@ -19,7 +19,7 @@ class Player(object):
         self.win = win
 
 
-    def lay_down_card(self, cards_in_hand):
+    def lay_down_random_card(self, cards_in_hand):
         length = len(cards_in_hand) - 1
         card_index = random.randint(0, length)
         lay_down = self.cards_in_hand.pop(card_index)
@@ -34,12 +34,12 @@ class Player(object):
     # def hand_of_cards(self, is_player_one, deck):
 
 
-class HandOfCards(Player):
-    def get_hand_of_cards(self):
-        return self.cards_in_hand
+#class HandOfCards(Player):
+#    def get_hand_of_cards(self):
+#        return self.cards_in_hand
 
-    def set_hand_of_cards(self, cards):
-        self.cards_in_hand = cards
+#    def set_hand_of_cards(self, cards):
+#        self.cards_in_hand = cards
 
     # def hand_details(self):
     #    for i in range(len(self.cards)):
