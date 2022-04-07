@@ -58,6 +58,7 @@ class Category(object):
     SKIP_BOMB = 6
     BONUS_TWO = 7
     BONUS_THREE = 8
+    BONUS_TEST = 9
 
 #def create_images():
  #   """create all card images as a card_name:image_object dictionary"""
@@ -125,6 +126,7 @@ class Images(object):
     WILLOW_RED_GIF = ImageTk.PhotoImage(Image.open(r"C:\Users\GIGABYTE\PycharmProjects\GoStopAI\card_gif\WILLOW_RED.gif"))
     WILLOW_DOUBLE_GIF = ImageTk.PhotoImage(Image.open(r"C:\Users\GIGABYTE\PycharmProjects\GoStopAI\card_gif\WILLOW_DOUBLE.gif"))
     BOMB_GIF = ImageTk.PhotoImage(Image.open(r"C:\Users\GIGABYTE\PycharmProjects\GoStopAI\card_gif\CRANE.gif"))
+    BONUS_TEST_GIF = ImageTk.PhotoImage(Image.open(r"C:\Users\GIGABYTE\PycharmProjects\GoStopAI\card_gif\CRANE.gif"))
     BONUS_TWO_GIF = ImageTk.PhotoImage(Image.open(r"C:\Users\GIGABYTE\PycharmProjects\GoStopAI\card_gif\CRANE.gif"))
     BONUS_THREE_GIF = ImageTk.PhotoImage(Image.open(r"C:\Users\GIGABYTE\PycharmProjects\GoStopAI\card_gif\CRANE.gif"))
 
@@ -192,6 +194,7 @@ WILLOW_DOUBLE = Card('Willow Double', Month.DEC, Category.JUNK_TWO, Images.WILLO
 
 BOMB = Card('Bomb', Month.BMB, Category.SKIP_BOMB, Images.CRANE_GIF)
 
+BONUS_TEST = Card('Bonus Test', Month.BON, Category.BONUS_TEST, Images.CRANE_GIF)
 BONUS_TWO = Card('Bonus Two', Month.BON, Category.BONUS_TWO, Images.CRANE_GIF)
 BONUS_THREE = Card('Bonus Three', Month.BON, Category.BONUS_THREE, Images.CRANE_GIF)
 
